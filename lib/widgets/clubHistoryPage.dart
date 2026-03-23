@@ -36,7 +36,7 @@ class _ClubHistoryPageState extends State<ClubHistoryPage> {
         title: Row(
           children: [
             getClubName(context, widget.club),
-            Text(' History'),
+            Text(' History', style: TextStyle(fontSize: fontSizeLarge)),
           ],
         ),
       ),
