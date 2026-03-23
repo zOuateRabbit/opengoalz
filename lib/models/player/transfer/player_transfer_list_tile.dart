@@ -28,6 +28,7 @@ class PlayerTransferTile extends StatelessWidget {
           if (player.transferBids.isEmpty)
             Text(
               'Starting price: ',
+              style: TextStyle(fontSize: fontSizeMedium),
             ),
           if (player.transferBids.isNotEmpty)
             ClubNameClickable(idClub: player.transferBids.first.idClub),
@@ -39,6 +40,7 @@ class PlayerTransferTile extends StatelessWidget {
             style: TextStyle(
               fontWeight: FontWeight.bold,
               color: Colors.green,
+              fontSize: fontSizeMedium,
             ),
           ),
         ],
