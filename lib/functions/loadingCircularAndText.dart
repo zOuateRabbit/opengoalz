@@ -10,7 +10,7 @@ Widget loadingCircularAndText(String text) => Center(
             text,
             style: TextStyle(
               color: Colors.blueGrey,
-              fontSize: fontSizeMedium,
+              fontSize: fontSizeLarge,
               decoration: TextDecoration.none,
             ),
           ),
