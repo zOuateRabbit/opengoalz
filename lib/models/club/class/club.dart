@@ -90,8 +90,8 @@ class Club {
         idCoach = map['id_coach'],
         idScout = map['id_scout'],
         postgisLocation = map['location'] {
-    print(
-        'Location from DB: $postgisLocation, type: ${postgisLocation?.runtimeType}');
+    // print(
+    //     'Location from DB: $postgisLocation, type: ${postgisLocation?.runtimeType}');
   }
 
   /// Fetch the club from its id
