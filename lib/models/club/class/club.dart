@@ -95,25 +95,31 @@ class Club {
   }
 
   /// Fetch the club from its id
-  static Future<Club?> fromId(int id, Profile user) async {
-    final stream = supabase
+  // static Future<Club?> fromId(int id, Profile user) async {
+  //   try {
+  //     final map =
+  //         await supabase.from('clubs').select().eq('id', id).maybeSingle();
+
+  //     if (map == null) {
+  //       return null;
+  //     }
+
+  //     return Club.fromMap(map, user);
+  //   } catch (e) {
+  //     print('Error fetching club: $e');
+  //     return null;
+  //   }
+  // }
+
+  /// Use this with StreamBuilder for live updates.
+  /// The channel is opened when the stream is listened to and closed
+  /// automatically when StreamBuilder disposes (widget leaves the tree).
+  static Stream<Club?> streamFromId(int id, Profile user) {
+    return supabase
         .from('clubs')
         .stream(primaryKey: ['id'])
         .eq('id', id)
-        .map((maps) => maps
-            .map((map) => Club.fromMap(
-                  map,
-                  user,
-                ))
-            .first);
-
-    try {
-      final club = await stream.first;
-      return club;
-    } catch (e) {
-      print('Error fetching club: $e');
-      return null;
-    }
+        .map((maps) => maps.isNotEmpty ? Club.fromMap(maps.first, user) : null);
   }
 
   /// Parse PostGIS geography point from WKB hex string

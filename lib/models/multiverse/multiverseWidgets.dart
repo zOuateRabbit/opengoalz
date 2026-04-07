@@ -61,8 +61,8 @@ Widget getMultiverseSpeedRow(Multiverse multiverse) {
 
 Widget getMultiverseIconFromId_Clickable(
     BuildContext context, int idMultiverse) {
-  return FutureBuilder<Multiverse?>(
-    future: Multiverse.fromId(idMultiverse), // Remove the 3-second delay
+  return StreamBuilder<Multiverse?>(
+    stream: Multiverse.streamFromId(idMultiverse),
     builder: (context, snapshot) {
       if (snapshot.connectionState == ConnectionState.waiting) {
         return Container(
@@ -141,8 +141,8 @@ Widget getMultiverseListTileFromMultiverse(
 }
 
 Widget getMultiverseListTileFromId(BuildContext context, int idMultiverse) {
-  return FutureBuilder<Multiverse?>(
-    future: Multiverse.fromId(idMultiverse), // Remove the 3-second delay
+  return StreamBuilder<Multiverse?>(
+    stream: Multiverse.streamFromId(idMultiverse),
     builder: (context, snapshot) {
       if (snapshot.connectionState == ConnectionState.waiting) {
         return loadingCircularAndText('Loading Multiverse...');

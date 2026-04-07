@@ -35,7 +35,7 @@ class _CreationDialogBox_Player extends State<CreationDialogBox_Player> {
   }
 
   Future<void> initializeMultiverse() async {
-    final multiverse = await Multiverse.fromId(1);
+    final multiverse = await Multiverse.streamFromId(1).first;
     if (mounted) {
       setState(() {
         _selectedMultiverse = multiverse;

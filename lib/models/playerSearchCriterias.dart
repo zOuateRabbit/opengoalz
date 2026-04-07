@@ -85,7 +85,8 @@ class PlayerSearchCriterias {
     }
 
     try {
-      final multiverse = await Multiverse.fromId(selectedClub.idMultiverse);
+      final multiverse =
+          await Multiverse.streamFromId(selectedClub.idMultiverse).first;
       if (multiverse == null) {
         context.showSnackBarError('Failed to fetch default multiverse');
         return;

@@ -86,7 +86,7 @@ class _ContinentPageState extends State<ContinentPage>
     if (idMultiverse == null) {
       _selectedMultiverse = null;
     } else {
-      _selectedMultiverse = await Multiverse.fromId(idMultiverse);
+      _selectedMultiverse = await Multiverse.streamFromId(idMultiverse).first;
     }
     setState(() {});
   }

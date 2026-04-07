@@ -21,8 +21,8 @@ Widget getClubNameListTile(BuildContext context, Club club) {
 }
 
 Widget getClubNameFromId(BuildContext context, int idClub) {
-  return FutureBuilder<Club?>(
-    future: Club.fromId(
+  return StreamBuilder<Club?>(
+    stream: Club.streamFromId(
         idClub, Provider.of<UserSessionProvider>(context, listen: false).user),
     builder: (context, snapshot) {
       if (snapshot.connectionState == ConnectionState.waiting) {

@@ -33,7 +33,7 @@ class _CreationDialogBox_Club extends State<CreationDialogBox_Club> {
   }
 
   Future<void> initializeMultiverse() async {
-    _selectedMultiverse = await Multiverse.fromId(1);
+    _selectedMultiverse = await Multiverse.streamFromId(1).first;
     setState(() {});
   }
 

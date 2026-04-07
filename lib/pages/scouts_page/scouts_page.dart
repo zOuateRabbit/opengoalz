@@ -63,7 +63,7 @@ class _ScoutsPageState extends State<ScoutsPage> {
                   maps.map((map) => Player.fromMap(map, _user)).toList()),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return loadingCircularAndText('Loading players...');
+              return loadingCircularAndText('Loading...');
             } else if (snapshot.hasError) {
               return ErrorWithBackButton(
                   errorMessage: snapshot.error.toString());
@@ -88,7 +88,7 @@ class _ScoutsPageState extends State<ScoutsPage> {
                       DefaultTextStyle.merge(
                         style: TextStyle(fontSize: fontSizeLarge),
                         child:
-                            getClubNameClickable(context,_user.selectedClub!),
+                            getClubNameClickable(context, _user.selectedClub!),
                       ),
                     ],
                   ),

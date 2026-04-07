@@ -51,19 +51,33 @@ class Multiverse {
     );
   }
 
-  static Future<Multiverse?> fromId(int id) async {
-    final stream = supabase
+  // static Future<Multiverse?> fromId(int id) async {
+  //   try {
+  //     final map = await supabase
+  //         .from('multiverses')
+  //         .select()
+  //         .eq('id', id)
+  //         .maybeSingle();
+
+  //     if (map == null) {
+  //       return null;
+  //     }
+
+  //     return Multiverse.fromMap(map);
+  //   } catch (e) {
+  //     print('Error fetching multiverse: $e');
+  //     return null;
+  //   }
+  // }
+
+  /// Use this with StreamBuilder for live updates.
+  /// The channel is opened when the stream is listened to and closed
+  /// automatically when StreamBuilder disposes (widget leaves the tree).
+  static Stream<Multiverse?> streamFromId(int id) {
+    return supabase
         .from('multiverses')
         .stream(primaryKey: ['id'])
         .eq('id', id)
-        .map((maps) => maps.map((map) => Multiverse.fromMap(map)).first);
-
-    try {
-      final multiverse = await stream.first;
-      return multiverse;
-    } catch (e) {
-      print('Error fetching multiverse: $e');
-      return null;
-    }
+        .map((maps) => maps.isNotEmpty ? Multiverse.fromMap(maps.first) : null);
   }
 }

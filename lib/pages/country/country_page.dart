@@ -110,7 +110,7 @@ class _CountryPageState extends State<CountryPage>
     if (idMultiverse == null) {
       _selectedMultiverse = null;
     } else {
-      _selectedMultiverse = await Multiverse.fromId(idMultiverse);
+      _selectedMultiverse = await Multiverse.streamFromId(idMultiverse).first;
     }
     setState(() {});
   }
