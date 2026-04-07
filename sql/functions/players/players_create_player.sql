@@ -8,7 +8,7 @@ CREATE OR REPLACE FUNCTION public.players_create_player(
     inp_username text DEFAULT NULL::text, -- Username of user incarning the player
     inp_shirt_number bigint DEFAULT NULL::bigint,
     inp_notes text DEFAULT NULL::text,
-    inp_stats_better_player double precision DEFAULT 0.0, -- Tthe higher the better the stats generated
+    inp_stats_better_player double precision DEFAULT 0.0, -- The higher the better the stats generated
     inp_stats double precision[] DEFAULT NULL,
     inp_first_name text DEFAULT NULL::text,
     inp_last_name text DEFAULT NULL::text)
@@ -143,7 +143,8 @@ BEGIN
         inp_first_name, inp_last_name, players_calculate_date_birth(inp_id_multiverse := inp_id_multiverse, inp_age := inp_age), 3.0 * (inp_age - 15.0),
         CASE WHEN inp_id_club IS NULL AND inp_username IS NULL THEN
             (NOW() + (INTERVAL '7 day' / (SELECT speed FROM multiverses WHERE id = inp_id_multiverse)))
-            ELSE NULL END,
+            ELSE NULL
+        END,
         inp_stats[1], inp_stats[2], inp_stats[3], inp_stats[4], inp_stats[5], inp_stats[6], inp_stats[7],
         ROUND(160 + 40 * (random() + random() + random() + random() + random()) / 5), -- Size
         CASE WHEN inp_username IS NULL THEN random() * 100 ELSE 80 END, -- Loyalty

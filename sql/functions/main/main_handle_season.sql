@@ -284,6 +284,11 @@ RAISE NOTICE '*** MAIN: Multiverse [%] S%W%D%: HANDLE SEASON: WEEK14', inp_multi
                     inp_stats_better_player := 0.5
                 );
 
+                UPDATE players SET
+                    transfer_status = 'Free Player',
+                    transfer_price = 49
+                WHERE id = loc_id_player;
+
             END LOOP;
         ELSE
     END CASE;
