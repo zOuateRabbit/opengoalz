@@ -618,6 +618,7 @@ class _playerSearchDialogBoxState extends State<playerSearchDialogBox> {
                             child: Row(
                               children: [
                                 Icon(Icons.person_search,
+                                    size: iconSizeMedium,
                                     color: tooManyResults
                                         ? Colors.red
                                         : Colors.green),
