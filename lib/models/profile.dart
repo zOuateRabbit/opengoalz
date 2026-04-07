@@ -175,9 +175,9 @@ Widget getUserName(BuildContext context, {String? userName, int? idClub}) {
   if (userName == null) {
     return Row(
       children: [
-        Icon(iconBot, color: Colors.red),
+        Icon(iconBot, size: iconSizeMedium, color: Colors.red),
         formSpacer3,
-        Text(' No User'),
+        Text(' No User', style: TextStyle(fontSize: fontSizeMedium)),
       ],
     );
   }
