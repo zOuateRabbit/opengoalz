@@ -26,8 +26,6 @@
       <circle id="Penalty mark" r="0.75" cx="34" cy="10.94" fill="#fff" stroke="none"/>
       <!-- Penalty arc at the edge of the penalty area -->
       <path id="Penalty arc" d="M 26.733027 16.5 a 9.15 9.15 0 0 0 14.533946 0"/>
-      <!-- Mirror the penalty area for the other half of the field -->
-      <use xlink:href="#Penalty area" transform="rotate(180,34,52.5)" />
     </g>
     <!-- Corner arcs at each corner of the field -->
     <!-- Mirror the penalty area for the other half of the field -->
