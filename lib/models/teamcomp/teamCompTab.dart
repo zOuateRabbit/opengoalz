@@ -68,7 +68,9 @@ class _TeamCompTabState extends State<TeamCompTab> {
                   children: selectedTeamcomp.errors!.map((error) {
                     return ListTile(
                       leading: Icon(iconBug, color: Colors.red),
-                      title: Text(error),
+                      title: Text(error,
+                          style: TextStyle(
+                              color: Colors.red, fontSize: fontSizeMedium)),
                     );
                   }).toList(),
                 ),

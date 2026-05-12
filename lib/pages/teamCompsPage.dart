@@ -170,7 +170,8 @@ class _TeamCompsPageState extends State<TeamCompsPage> {
             Club club = snapshot.data!;
             return Scaffold(
               appBar: AppBar(
-                title: Text('TeamComps for season ${_seasonNumber}',
+                // title: Text('TeamComps for season ${_seasonNumber}',
+                title: Text('TeamComps',
                     style: TextStyle(fontSize: fontSizeLarge)),
                 leading: goBackIconButton(context),
                 actions: [
@@ -266,7 +267,11 @@ class _TeamCompsPageState extends State<TeamCompsPage> {
                             club.teamComps.length == 0
                                 ? Center(
                                     child: Text(
-                                        'No teamcomps found for season $_seasonNumber...'))
+                                      'No teamcomps found for season $_seasonNumber...',
+                                      style:
+                                          TextStyle(fontSize: fontSizeMedium),
+                                    ),
+                                  )
                                 : DefaultTabController(
                                     length: club.teamComps
                                         .length, // Number of tabs for the outer TabController
