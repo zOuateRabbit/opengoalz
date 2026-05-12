@@ -1,7 +1,7 @@
--- DROP FUNCTION public.teamcomps_remove_player_from_teamcomps(int8);
+--DROP FUNCTION public.player_remove_from_teamcomps(RECORD);
 
 CREATE OR REPLACE FUNCTION public.player_remove_from_teamcomps(rec_player RECORD)
- RETURNS integer
+ RETURNS void
  LANGUAGE plpgsql
 AS $function$
 BEGIN
