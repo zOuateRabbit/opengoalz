@@ -61,6 +61,26 @@ BEGIN
         END LOOP;
     END IF;
 
+    ------------------------------------------------------------------------------------------------------------------------
+    ------------------------------------------------------------------------------------------------------------------------
+    ------------ Remove any player ID that is retired (even if still in the club)
+    SELECT array_agg(id) INTO array_id_players_tmp FROM players
+    WHERE id = ANY(array_id_players)
+    AND date_retire IS NOT NULL;
+
+    IF array_id_players_tmp IS NOT NULL THEN
+        FOR I IN 1..21 LOOP
+            IF array_id_players[I] = ANY(array_id_players_tmp) THEN
+
+                text_return := array_append(text_return, '[' || player_get_full_name(array_id_players[I]) || '] in slot [' || I || '] is retired');
+
+                IF inp_bool_try_to_correct THEN
+                    array_id_players[I] := NULL;
+                END IF;
+            END IF;
+        END LOOP;
+    END IF;
+
 --RAISE NOTICE '1) array_id_players: %', array_id_players;
 
     ------------------------------------------------------------------------------------------------------------------------
@@ -143,7 +163,8 @@ BEGIN
         WHERE id NOT IN (
             SELECT unnest(array_remove(array_id_players[1:14], NULL))
         )
-        AND id_club = rec_teamcomp.id_club;
+        AND id_club = rec_teamcomp.id_club
+        AND date_retire IS NULL;
 
 --RAISE NOTICE 'AVAILABLE PLAYERS= %', array_id_players_tmp;
 
@@ -193,7 +214,8 @@ BEGIN
         ------ Select the players from the club that are not in the starting positions
         SELECT array_agg(id ORDER BY performance_score_real DESC) INTO array_id_players_tmp FROM players
         WHERE id NOT IN (SELECT unnest(array_remove(array_id_players, NULL)))
-        AND id_club = rec_teamcomp.id_club;
+        AND id_club = rec_teamcomp.id_club
+        AND date_retire IS NULL;
 
     ------ OPTIMIZE THIS PART !!!!!!!!!!!!
         ------ Loop through the subs positions and add the players if there are any

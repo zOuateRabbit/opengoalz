@@ -31,18 +31,26 @@ BEGIN
             idsub6 = CASE WHEN idsub6 = rec_player.id THEN NULL ELSE idsub6 END,
             idsub7 = CASE WHEN idsub7 = rec_player.id THEN NULL ELSE idsub7 END
     WHERE is_played IS FALSE
-    AND id_club = rec_player.id_club;
+    -- AND id_club = rec_player.id_club -- Safer but maybe poorer performances
+    AND rec_player.id IN (
+        idgoalkeeper, idleftbackwinger, idleftcentralback, idcentralback,
+        idrightcentralback, idrightbackwinger, idleftwinger, idleftmidfielder,
+        idcentralmidfielder, idrightmidfielder, idrightwinger, idleftstriker,
+        idcentralstriker, idrightstriker, idsub1, idsub2, idsub3, idsub4,
+        idsub5, idsub6, idsub7
+    );
 
     ------ Try to correct the errors in the main default teamcomp
-    PERFORM teamcomp_correct_teamcomp_errors(
-        inp_id_teamcomp := (
-            SELECT id
-            FROM games_teamcomp
-            WHERE id_club = rec_player.id_club
-            AND season_number = 0
-            AND week_number = 1
-        )
-    );
+    -- PERFORM teamcomp_check_or_correct_errors(
+    --     inp_id_teamcomp := (
+    --         SELECT id
+    --         FROM games_teamcomp
+    --         WHERE id_club = rec_player.id_club
+    --         AND season_number = 0
+    --         AND week_number = 1
+    --     ),
+    --     inp_bool_try_to_correct := TRUE
+    -- );
 
 END;
 $function$

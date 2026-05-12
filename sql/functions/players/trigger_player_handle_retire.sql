@@ -28,7 +28,7 @@ BEGIN
     INSERT INTO players_history (id_player, id_club, description)
     VALUES (NEW.id, NEW.id_club, random_description);
 
-    ------ Send mails to the club to inform them of the death of the player
+    ------ Send mails to the club to inform them of the retirement of the player
     INSERT INTO mails (id_club_to, sender_role, is_club_info, title, message)
         SELECT 
             id AS id_club_to, 'Secretary' AS sender_role, TRUE AS is_club_info,
@@ -38,10 +38,24 @@ BEGIN
             clubs
         WHERE id_coach = NEW.id;
 
+    ------ Send mails to clubs following or poaching the player
+    INSERT INTO mails (id_club_to, sender_role, is_transfer_info, title, message)
+        SELECT DISTINCT id_club, 'Scouts', TRUE,
+            player_string_parser || ' has retired',
+            player_string_parser || ' has retired, he is no longer available for transfer.'
+        FROM (
+            SELECT id_club FROM players_favorite WHERE id_player = NEW.id
+            UNION
+            SELECT id_club FROM players_poaching WHERE id_player = NEW.id
+        ) AS clubs;
+
+    ------ Remove the retired player from all team compositions
+    PERFORM player_remove_from_teamcomps(NEW);
+
     ------ Reset the player
     UPDATE players SET
         expenses_missed = 0,
-        --expenses_target = 0,
+        --expenses_target = 0, -- Dont remember why ?
         training_points_available = 0, training_points_used = 0
     WHERE id = NEW.id;
 
