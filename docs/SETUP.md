@@ -40,19 +40,39 @@ To run the project, use the following command:
 
 ### Windows Build Requirements
 
-For building the Windows version of the app, you need to have Visual Studio 2022 Community Edition installed with the "Desktop development with C++" workload.
+For building the Windows version of the app, you need Visual Studio 2022 with the **Desktop development with C++** workload installed.
 
 ```powershell
+# ❌ This command often does NOT install the C++ workload correctly — use the manual steps below instead
 choco install visualstudio2022community --package-parameters "--add Microsoft.VisualStudio.Workload.NativeDesktop" -y
 ```
 
+**Recommended Setup (manual install via Visual Studio Installer):**
+
+1. Download and run the [Visual Studio Installer](https://visualstudio.microsoft.com/downloads/).
+2. Select **Visual Studio Community**.
+3. Under the **Workloads** tab, check the box for **Desktop development with C++**.
+4. Click **Install** (or **Modify** if already installed) in the bottom right corner and wait for the installation to complete.
+
 ### Android Build Requirements
 
-To build the Android version of the app, you need to have the Android SDK installed. You can install it using the following command:
+To build the Android version of the app, you need Android Studio and the Android SDK installed.
+
+> ⚠️ **The following Chocolatey command does NOT work reliably** — it may install Android Studio but frequently fails to set up the Android SDK and required components. **Do not rely on it.**
 
 ```powershell
+# ❌ This command often does NOT set up the Android SDK correctly — use the manual steps below instead
 choco install androidstudio -y
 ```
+
+**Recommended Setup (manual install via Android Studio):**
+
+1. Download and install [Android Studio](https://developer.android.com/studio) directly from the official site.
+2. Launch Android Studio and complete the **Setup Wizard** — this installs the Android SDK and default components automatically.
+3. Once installed, open **Settings > Languages & Frameworks > Android SDK** (or via the **SDK Manager** button on the welcome screen).
+4. Under the **SDK Platforms** tab, install the Android version you want to target.
+5. Under the **SDK Tools** tab, make sure **Android SDK Build-Tools**, **Android Emulator**, and **Android SDK Platform-Tools** are all installed.
+6. Run `fvm flutter doctor --android-licenses` to accept the required Android licenses.
 
 ## Next Steps
 
